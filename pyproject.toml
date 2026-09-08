@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "workskill"
+version = "0.1.0"
+description = "Evidence-backed personal work knowledge and reusable skill evolution"
+readme = "README.en.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "rzr002"}]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/rzr002/workskill"
+
+[project.scripts]
+workskill = "workskill_core.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["skills/distill-work/scripts"]
+include = ["workskill_core*"]
+
+[tool.setuptools]
+include-package-data = false

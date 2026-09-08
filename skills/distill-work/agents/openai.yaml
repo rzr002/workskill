@@ -1,0 +1,4 @@
+interface:
+  display_name: "WorkSkill · 工作能力蒸馏"
+  short_description: "Turn work evidence into a personal wiki and reusable skills"
+  default_prompt: "Use $distill-work to update my personal work wiki and propose evidence-backed skills."

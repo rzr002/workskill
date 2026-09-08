@@ -1,0 +1,25 @@
+{
+  "name": "workskill",
+  "version": "0.1.0",
+  "description": "Distill employee-authored work methods into an evidence-backed personal wiki and validated reusable skills, inspired by WikiSkill.",
+  "author": {
+    "name": "rzr002",
+    "url": "https://github.com/rzr002"
+  },
+  "repository": "https://github.com/rzr002/workskill",
+  "homepage": "https://github.com/rzr002/workskill",
+  "license": "MIT",
+  "keywords": ["wikiskill", "codex", "personal-knowledge", "skill-evolution", "employee-skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "WorkSkill · 工作能力蒸馏",
+    "shortDescription": "Turn work evidence into a personal wiki and reusable skills.",
+    "longDescription": "Incrementally import authorized Codex work records, distinguish employee methods from AI outcomes, maintain an evidence-backed wiki, and validate skills before activation. Includes a local capability report and an offline Python CLI.",
+    "developerName": "rzr002",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["从我授权的 Codex 工作记录中蒸馏个人方法，更新知识 Wiki。", "查看我的能力证据与 Skill 演化记录。", "每天增量更新工作 Wiki，为新的方法提出 Skill 候选。"],
+    "brandColor": "#356744",
+    "websiteURL": "https://github.com/rzr002/workskill"
+  }
+}
