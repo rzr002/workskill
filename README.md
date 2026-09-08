@@ -1,14 +1,35 @@
 # WorkSkill
 
-**让工作的经验，成为自己的能力。**
+**把 Codex 工作记录里的做事方法，变成有据可查的个人 Wiki 和可复用的 Skill。**
 
-WorkSkill 是一个基于 [WikiSkill](https://arxiv.org/abs/2608.27454) 思路独立开发的 Codex Skill / 插件包。从员工授权的 Codex 工作记录中提炼明确表达的方法，维护有证据的个人 Wiki，再编译和验证可复用的 Skills。
+适合经常用 Codex 开发、排查问题或处理数据，希望把有效方法留给下次使用的人。WorkSkill 从你授权的工作记录中提炼方法，保留原始证据和适用边界，再提出需要验证的 Skill 候选。
 
-它已包含可运行的本地数据引擎、增量导入、证据校验、版本演化、配对评估门槛、离线报告和安装脚本。语义蒸馏由加载本 Skill 的 Codex 完成；Python CLI 不调用额外模型。当前版本 **0.1.0**，Python **3.10+**，运行时零第三方依赖。
+**[先跑合成数据演示](#demo)** · [安装到 Codex](#install) · [English](README.en.md) · [使用与数据格式](skills/distill-work/references/records.md)
 
-[English](README.en.md) · [使用与数据格式](skills/distill-work/references/records.md) · [验证机制](skills/distill-work/references/evaluation.md) · [持续运行](skills/distill-work/references/continuous.md)
+Python **3.10+** · 运行时零第三方依赖 · [MIT](LICENSE) · 当前版本 **0.1.0**
+
+你会得到：
+
+- **带证据的个人 Wiki**：每条方法可以回到具体记录，查看适用条件与反例。
+- **可审查的 Skill 候选**：保留版本和失败尝试；通过配对验证后才启用。
+- **本地 HTML 报告**：在一个页面中查看方法、证据和版本历史。
 
 ![WorkSkill 本地能力报告，使用虚构员工与示例数据](docs/images/demo-report.png)
+
+<a id="demo"></a>
+## 先用合成数据看结果
+
+只需要 Python 和 Git；演示不读取你的真实工作记录，也不需要安装 Skill 或调用模型。
+
+```bash
+git clone https://github.com/rzr002/workskill.git
+cd workskill
+python3 scripts/demo.py --output /tmp/workskill-demo
+```
+
+用浏览器打开命令输出的 `report` 路径。你会看到四段虚构工作记录、三个方法模式，以及一次接受和一次拒绝的 Skill 提议。再次运行请换一个新目录。
+
+**演示的员工、任务和评估分数均为虚构。** 它展示数据流与验证门槛，不代表实际模型性能提升。准备处理自己的记录时，继续[安装到 Codex](#install)。
 
 ## 看它如何工作
 
@@ -26,11 +47,12 @@ flowchart LR
 
 员工说“合并前检查主键唯一性，合并后核对金额总计”，可以作为其数据核对方法的证据。AI 自己说“我修好了编码问题”，只会记为 AI 执行经验。跨任务出现不同的人类方法陈述时，证据频次才会从单次观察升级为跨任务复现；这不是员工熟练度或绩效评分。
 
+<a id="install"></a>
 ## 安装与第一次使用
 
+在已克隆的 `workskill` 目录中运行：
+
 ```bash
-git clone https://github.com/rzr002/workskill.git
-cd workskill
 python3 scripts/install_skill.py
 ```
 
@@ -41,16 +63,6 @@ python3 scripts/install_skill.py
 选择已授权的会话导出目录；标准本地 Codex 会话通常位于 `~/.codex/sessions`。导入器还会按会话及每轮工作目录过滤项目，目录前缀相似但不在项目内的会话不会纳入。不要用共享账号的混合会话推断某一个员工的能力。
 
 仓库同时提供 `.codex-plugin/plugin.json`，可供已有 Codex 插件分发系统打包。当前开箱即用的安装入口是上面的独立 Skill 安装器；仓库未配置插件 marketplace。
-
-## 不使用真实记录，先跑一次完整演示
-
-```bash
-python3 scripts/demo.py --output /tmp/workskill-demo
-```
-
-命令会创建虚构员工的四段工作记录，蒸馏三个模式，演示一次接受和一次拒绝，然后打印私有报告 `report.html` 的绝对路径。用浏览器打开它，可查看方法、引用证据、归属和版本历史。再次运行请换一个新目录。
-
-**演示的员工、任务和评估分数均为虚构。** 它验证数据流与门槛，不代表实际模型性能提升。
 
 ## 持续更新
 
@@ -120,3 +132,10 @@ GitHub Actions 在 Linux、macOS、Windows 上运行测试。测试全部使用�
 ## 来源与许可
 
 借鉴 Tang 等人的 [WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution](https://arxiv.org/abs/2608.27454)（2026）：分离原始证据、持续知识和可执行技能，并保留失败提议的学习价值。WorkSkill 面向个人工作方法做了独立实现与产品适配，与 Google 无隶属关系。代码采用 [MIT License](LICENSE)。
+
+## 相关项目与反馈
+
+- 想先回顾一天或一周做过什么：[Reflect Workday](https://github.com/rzr002/reflect-workday)。
+- 想组织和调用已有的个人、团队 Skills：[Personal Workbench](https://github.com/rzr002/personal-workbench)。
+
+这些项目可以独立使用，没有自动同步个人数据的集成。试用后欢迎[提交问题或建议](https://github.com/rzr002/workskill/issues)：说明使用场景、预期结果和实际结果，并使用合成记录复现。

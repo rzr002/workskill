@@ -1,16 +1,40 @@
 # WorkSkill
 
-Turn the methods in your work into a personal, evidence-backed wiki and reusable skills. WorkSkill is an independent adaptation of [WikiSkill](https://arxiv.org/abs/2608.27454) for employee-owned work knowledge, packaged as a portable Codex skill with a plugin manifest.
+**Turn the work methods in your Codex sessions into a personal wiki and reusable skills.**
 
-[中文说明](README.md) · [Record schemas](skills/distill-work/references/records.md) · [Evaluation](skills/distill-work/references/evaluation.md) · [Continuous use](skills/distill-work/references/continuous.md)
+For people who use Codex to build software, diagnose problems, or work with data and want to reuse what worked. WorkSkill extracts methods from authorized records, keeps their source evidence and limits, and proposes skills for evaluation before activation.
+
+**[Run the synthetic demo](#demo)** · [Install in Codex](#install) · [中文说明](README.md) · [Record schemas](skills/distill-work/references/records.md)
+
+Python **3.10+** · No third-party runtime dependencies · [MIT](LICENSE) · Version **0.1.0**
+
+- **A personal wiki with source evidence:** inspect the records, conditions, and counterexamples behind each method.
+- **Reviewable skill candidates:** track revisions and failed proposals; activate only after the paired evaluation gate passes.
+- **A local HTML report:** browse methods, evidence, and skill history in one place.
 
 ![Local capability report using fictional employee data](docs/images/demo-report.png)
 
-## Install
+<a id="demo"></a>
+## Try it with synthetic records
+
+Requires only Python and Git. The demo reads no real work records, installs no skill, and makes no model calls.
 
 ```bash
 git clone https://github.com/rzr002/workskill.git
 cd workskill
+python3 scripts/demo.py --output /tmp/workskill-demo
+```
+
+Open the `report` path printed by the command. It shows four fictional work records, three patterns, and one accepted and one rejected skill proposal. Choose a fresh output directory when rerunning.
+
+All employee records and evaluation scores are synthetic. This demonstrates the data flow and evaluation gate, not measured model improvement. To use your own records, continue with installation.
+
+<a id="install"></a>
+## Install in Codex
+
+From the cloned `workskill` directory:
+
+```bash
 python3 scripts/install_skill.py
 ```
 
@@ -19,14 +43,6 @@ Requires Python 3.10+, with no runtime dependencies. Open a new Codex task after
 > Use $distill-work to extract my work methods from authorized Codex session exports at /absolute/sessions, restricted to /absolute/project. Use employee alias example-user. Update my wiki, show an evidence report, and propose reusable skills.
 
 The installer copies the self-contained skill into `~/.codex/skills/distill-work` and refuses to overwrite an existing installation. `--dest` selects a different skills parent directory; `--dry-run` previews installation. The plugin manifest is provided for plugin distribution systems; this repository does not configure a marketplace.
-
-## Run a fictional demonstration
-
-```bash
-python3 scripts/demo.py --output /tmp/workskill-demo
-```
-
-Open the reported `report.html` path. All employee records and evaluation scores in this demo are synthetic. It demonstrates one accepted and one rejected skill proposal, not measured model improvement.
 
 ## What it does
 
@@ -60,3 +76,12 @@ python3 scripts/check_package.py
 ```
 
 Optional CLI packaging: `python3 -m pip install .`, then `workskill --help`. Tests use fictional evidence in temporary directories. [Architecture](docs/architecture.md) · [MIT License](LICENSE).
+
+## Related projects and feedback
+
+- [Reflect Workday](https://github.com/rzr002/reflect-workday): recall what happened during a day or week.
+- [Personal Workbench](https://github.com/rzr002/personal-workbench): organize and route existing personal and team skills.
+
+Each project works independently; there is no automatic personal-data synchronization between them. [Report a problem or suggest an improvement](https://github.com/rzr002/workskill/issues) with your use case, expected outcome, and a synthetic reproduction.
+
+WorkSkill is an independent adaptation of [WikiSkill](https://arxiv.org/abs/2608.27454), with no Google affiliation or claim to reproduce the paper's benchmark results.
