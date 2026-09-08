@@ -329,7 +329,7 @@ class WorkSkillTest(unittest.TestCase):
         note["title"] = "连接核对 <script>alert(1)</script>"
         self.run_cli("learn", "--file", self.write_json("title.json", note))
         result = self.run_cli("report")
-        html = Path(result["path"]).read_text()
+        html = Path(result["path"]).read_text(encoding="utf-8")
         self.assertIn("连接核对", html)
         self.assertNotIn("<script>alert(1)</script>", html)
         self.assertIn("&lt;script&gt;", html)
