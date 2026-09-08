@@ -358,6 +358,13 @@ class WorkSkillTest(unittest.TestCase):
         self.run_cli("ingest")
         self.assertNotIn("private-material", self.run_cli("inbox")["evidence"][0]["text"])
 
+    def test_unicode_owner_works_with_ascii_process_output_encoding(self):
+        result = subprocess.run([sys.executable, str(CLI), "--vault", str(self.vault), "init",
+                                 "--owner", "员工陈禾", "--source", str(self.sources), "--project", str(self.project)],
+                                capture_output=True, text=True, env={**os.environ, "PYTHONIOENCODING": "ascii"})
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["owner"], "员工陈禾")
+
 
 if __name__ == "__main__":
     unittest.main()

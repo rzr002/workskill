@@ -8,7 +8,7 @@ import time
 
 from . import __version__, engine
 from .ingest import ingest
-from .storage import Store, WorkSkillError, encode, require
+from .storage import Store, WorkSkillError, require
 
 
 def parser():
@@ -105,7 +105,7 @@ def main():
             except Exception:
                 store.finish(False)
                 raise
-            print(encode(result))
+            print(json.dumps(result, sort_keys=True, allow_nan=False))
             return
         while True:
             store = Store(args.vault)
@@ -117,7 +117,7 @@ def main():
             except Exception:
                 store.finish(False)
                 raise
-            print(encode(result), flush=True)
+            print(json.dumps(result, sort_keys=True, allow_nan=False), flush=True)
             if args.command != "watch" or args.once:
                 break
             time.sleep(args.interval)

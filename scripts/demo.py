@@ -91,7 +91,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
-        print(json.dumps(demo(args.output.expanduser().resolve()), ensure_ascii=False))
+        print(json.dumps(demo(args.output.expanduser().resolve())))
     except (ValueError, OSError, subprocess.CalledProcessError) as error:
         print(str(error) + (getattr(error, "stderr", "") or ""), file=sys.stderr)
         return 2
